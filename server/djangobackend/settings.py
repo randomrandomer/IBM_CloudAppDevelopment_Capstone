@@ -27,7 +27,10 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "hdhami.apic.eu-gb.mybluemix.net"
+]
 
 
 # Application definition
