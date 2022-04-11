@@ -1,11 +1,11 @@
   applications:
   - name: djangoapp
     routes:
-      - route: hdhami.apic.eu-gb.mybluemix.net
+      - route: hdhami.eu-gb.cf.appdomain.cloud
     memory: 128M
     buildpack: python_buildpack
   - name: djangoapp-nginx
     routes:
-      - route: hdhami.apic.eu-gb.mybluemix.net/static
+      - route: hdhami.eu-gb.cf.appdomain.cloud/static
     memory: 128M
     buildpack: staticfile_buildpack
