@@ -1,16 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+        <title>Add Review</title>
+    </head>
     <body>
     <!--Add review form here -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Dealership Review</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about_us' %}">About Us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:contact_us' %}">Contact Us</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="btn btn-link" href="#">{{ user.first_name }}&nbsp;({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Username" name="username" >
+                            <input type="password" class="form-control" placeholder="Password" name="psw" >
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <form action="{% url 'djangoapp:add_review' dealer.id %}" method="post">
+        <div class="container"> <!--Style root div with .container class -->
+            {% csrf_token %}
+            <h1>Add Review</h1>
+            <hr>
+            <div class="form-group"> <!--Style second div with .form-group class -->
+                <label for="reviewer_name"><b>Name</b></label>
+                <input type="text" class="form-control" placeholder="Enter your name: " name="reviewer_name" required>
+                <label for="dealer_name"><b>Dealership Name</b></label>
+                <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required> <!--Make dropdown with all available dealers -->
+                <label for="car_make"><b>Car Make</b></label>
+                <input type="text" class="form-control" placeholder="Enter First Name: " name="firstname" required> <!--Change for car make -->
+                <label for="car_model"><b>Car Model</b></label>
+                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for car model -->
+                <label for="car_year"><b>Date of Manufacture</b></label>
+                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for car year -->
+                <label for="was_purchased"><b>Purchased?</b></label>
+                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for purchased - boolean -->
+                <label for="purchase_date"><b>Date of Purchase</b></label>
+                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for purchase date, date field -->
+                <label for="review"><b>Review</b></label>
+                <input type="text" class="form-control" placeholder="Enter Review: " name="review" required> <!--Perhaps make box bigger for longer review -->
+                {% if message %}
+                <div class="alert alert-warning"> <!--Style the message paragraph with .alert and .alert-warning class -->
+                    {{ message }}
+                </div>
+                {% endif %}
+                <button class="btn btn-primary" type="submit">Add Review</button> <!--Style button with .btn and .btn-primary class -->
+            </div>
+        </div>
+    </form>
     </body>
 </html>

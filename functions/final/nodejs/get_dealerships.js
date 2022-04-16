@@ -50,26 +50,53 @@ function main(params) {
             });
         } else if (params.id) {
 
-            id = parseInt(params.dealerId)
+            // id = parseInt(params.dealerId)
 
-            dealershipDb.find({selector: {id:parseInt(params.id)}}, function (err, results) {
+            // dealershipDb.find({selector: {id:parseInt(params.id)}}, function (err, results) {
+            //     if (err) {
+            //         console.log("Error finding dealerships by id", err)
+            //         reject(err);
+            //     }
+
+            //     let code = 200;
+
+            //     if (result.docs.length==0)
+            //     {
+            //         code = 404;
+            //     }
+
+            //     resolve({
+            //         statusCode: code,
+            //         headers: { 'Content-Type': 'application/json' },
+            //         body: result
+            //     });
+
+            dealershipDb.find({
+
+                "selector": {
+                    "id": {
+                        "$eq": params.id
+                    }
+                }
+            }, function (err, result) {
+
                 if (err) {
-                    console.log("Error finding dealerships by id", err)
+                    console.log("Error finding dealerships with id", err)
                     reject(err);
                 }
 
-                let code = 200;
+                let code=200;
 
-                if (result.docs.length==0)
+                if (result.docs.length == 0)
                 {
                     code = 404;
                 }
-
                 resolve({
                     statusCode: code,
                     headers: { 'Content-Type': 'application/json' },
                     body: result
                 });
+
             });
         } else {
             // Return all documents
