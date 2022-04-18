@@ -104,7 +104,7 @@ def get_dealer_reviews_from_cf(url, **kwargs):
                                    name=each_review["name"],
                                    purchase=each_review["purchase"],
                                    review=each_review["review"],
-                                   id=each_review["id"],
+                                   # id=each_review["id"],
                                    purchase_date=each_review["purchase_date"],
                                    car_make=each_review["car_make"],
                                    car_model=each_review["car_model"],

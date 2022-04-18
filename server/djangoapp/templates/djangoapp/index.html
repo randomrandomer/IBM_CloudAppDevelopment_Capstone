@@ -49,10 +49,8 @@
     </nav>
     <!--Add a dealer table here -->
     <div class="container-fluid">
-        {% if messages %}
-            {% for message in messages %}
+        {% if message %}
                 <div class="alert alert-warning" role="alert">{{ message }}</div>
-            {% endfor %}
         {% endif %}
     
         <table class="table table-bordered" id="table"

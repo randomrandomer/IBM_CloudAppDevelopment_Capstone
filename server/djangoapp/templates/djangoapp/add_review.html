@@ -46,27 +46,40 @@
             <hr>
             <div class="form-group"> <!--Style second div with .form-group class -->
                 <label for="reviewer_name"><b>Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter your name: " name="reviewer_name" required>
+                <input type="text" class="form-control" value="{{user.first_name}} {{user.last_name}}" name="reviewer_name" readonly>
                 <label for="dealer_name"><b>Dealership Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter User Name: " name="username" required> <!--Make dropdown with all available dealers -->
-                <label for="car_make"><b>Car Make</b></label>
-                <input type="text" class="form-control" placeholder="Enter First Name: " name="firstname" required> <!--Change for car make -->
+                <!-- <select class="form-control" name="dealer_name" id="dealer_name">
+                    {% for dealer in dealership_list %}
+                    <option value={{forloop.counter}}>{{dealer.full_name}}</option>
+                    {% endfor %}
+                </select> -->
+                <input type="text" class="form-control" value={{dealer.id}} name="dealer_name" readonly>
+                <label for="car_make_model_year"><b>Car Make, Model, and Manufacture Date</b></label>
+                <select class="form-control" name="car" id="car_make_model_year">
+                    {% for car in cars %}
+                    <option value={{car.id}}>{{car.make.name}} {{car.name}} ({{car.year}})</option>
+                    {% endfor %}
+                </select>
+                <!-- <label for="car_make"><b>Car Make</b></label>
+                <input type="text" class="form-control" placeholder="Please enter the car make: " name="car_make" required> 
                 <label for="car_model"><b>Car Model</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for car model -->
-                <label for="car_year"><b>Date of Manufacture</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for car year -->
-                <label for="was_purchased"><b>Purchased?</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for purchased - boolean -->
+                <input type="text" class="form-control" placeholder="Please enter the car model: " name="car_model" required> -->
+                <!-- <label for="car_year"><b>Date of Manufacture</b></label>
+                <input type="date" class="form-control" value={{car.year}} name="car_year" readonly>  -->
+                <b>Did you purchase the car?</b><br>
+                <label for="was_purchased"></label>Tick for yes, leave empty for no.</label>
+                <input type="hidden" value=0 name="was_purchased">
+                <input type="checkbox" value=1 name="was_purchased"><br> <!--Change for purchased - boolean -->
                 <label for="purchase_date"><b>Date of Purchase</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required> <!--Change for purchase date, date field -->
+                <input type="date" class="form-control" placeholder="If the car was purchased, please enter the purchase date: " name="purchase_date"> <!--Change for purchase date, date field -->
                 <label for="review"><b>Review</b></label>
-                <input type="text" class="form-control" placeholder="Enter Review: " name="review" required> <!--Perhaps make box bigger for longer review -->
+                <input type="text" class="form-control" placeholder="Please enter your review: " name="review" required> <!--Perhaps make box bigger for longer review -->
                 {% if message %}
                 <div class="alert alert-warning"> <!--Style the message paragraph with .alert and .alert-warning class -->
                     {{ message }}
                 </div>
                 {% endif %}
-                <button class="btn btn-primary" type="submit">Add Review</button> <!--Style button with .btn and .btn-primary class -->
+                <br><button class="btn btn-primary" type="submit">Add Review</button> <!--Style button with .btn and .btn-primary class -->
             </div>
         </div>
     </form>
