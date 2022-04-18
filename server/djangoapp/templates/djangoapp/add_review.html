@@ -57,7 +57,7 @@
                 <label for="car_make_model_year"><b>Car Make, Model, and Manufacture Date</b></label>
                 <select class="form-control" name="car" id="car_make_model_year">
                     {% for car in cars %}
-                    <option value={{car.id}}>{{car.make.name}} {{car.name}} ({{car.year}})</option>
+                    <option value={{car.id}}>{{car.make.name}} {{car.name}} ({{car.year|date:"Y"}})</option>
                     {% endfor %}
                 </select>
                 <!-- <label for="car_make"><b>Car Make</b></label>
@@ -73,7 +73,7 @@
                 <label for="purchase_date"><b>Date of Purchase</b></label>
                 <input type="date" class="form-control" placeholder="If the car was purchased, please enter the purchase date: " name="purchase_date"> <!--Change for purchase date, date field -->
                 <label for="review"><b>Review</b></label>
-                <input type="text" class="form-control" placeholder="Please enter your review: " name="review" required> <!--Perhaps make box bigger for longer review -->
+                <textarea class="form-control" placeholder="Please enter your review: " name="review" rows="2" required></textarea>
                 {% if message %}
                 <div class="alert alert-warning"> <!--Style the message paragraph with .alert and .alert-warning class -->
                     {{ message }}
