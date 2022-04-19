@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     "localhost:8000",
     '*',
     '[::1]',
+    'haldhami.eu-gb.cf.appdomain.cloud'
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://haldhami-8000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
