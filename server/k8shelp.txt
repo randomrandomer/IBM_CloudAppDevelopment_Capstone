@@ -1,0 +1,29 @@
+In order to get the application running on Kubernetes, these were the following steps:
+- Dockerfile was set up as seen
+- entrypoint.sh was set up as seen
+- deployment.yaml was set up as seen
+- All files located in the root directory of the Django app
+
+The following commands were then run in this order:
+- ibmcloud login    # Proceed to login with login details
+- ibmcloud cr login     # Login to ibmcloud cloud registry
+- ibmcloud cr region-set us-south   # Unsure if this region is necessary
+- export MY_NAMESPACE=sn-labs-haldhami    # Namespace could be anything unique I believe
+- docker build -t us.icr.io/$MY_NAMESPACE/dealership .
+- docker push us.icr.io/$MY_NAMESPACE/dealership
+- kubectl run dealership --image us.icr.io/$MY_NAMESPACE/dealership:latest --overrides='{"spec":{"template":{"spec":{"imagePullSecrets":[{"name":"icr"}]}}}}'
+- kubectl apply -f deployment.yaml
+- kubectl port-forward deployment.apps/dealership 8000:8000
+
+The application would then be running on localhost:8000 on a localmachine (I think)
+In sn-labs it was running on:
+https://haldhami-8000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/djangoapp/
+
+Other useful commands for K8s were:
+kubectl delete -n sn-labs-haldhami deployment dealership    # Deleted deployment
+kubectl -n sn-labs-haldhami delete pod,svc --all    # Deleted all pods in Namespace
+kubectl get pods    # Showed all pods (in namespace?)
+
+In addition, the following was done:
+- added 'python manage.py collectstatic --noinput' to entrypoint.sh file to ensure all static files are collected
+- added 'CSRF_TRUSTED_ORIGINS = ['Your application url']' to settings.py to ensure admin (?) access on different server

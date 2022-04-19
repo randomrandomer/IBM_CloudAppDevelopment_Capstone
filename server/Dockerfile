@@ -6,7 +6,7 @@ FROM python:3.9.2
     RUN apt-get update \
         && apt-get install -y netcat
 
-    ENV APP=/Users/haldhami/ibm/IBM_CloudAppDevelopment_Capstone/server
+    ENV APP=/app
 
     # Change the workdir.
     WORKDIR $APP
@@ -21,7 +21,7 @@ FROM python:3.9.2
 
     EXPOSE 8000
 
-    RUN chmod +x entrypoint.sh
-    ENTRYPOINT ["entrypoint.sh"]
+    RUN chmod +x /app/entrypoint.sh
+    ENTRYPOINT ["/app/entrypoint.sh"]
 
     CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangobackend.wsgi"]
